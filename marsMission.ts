@@ -36,6 +36,7 @@ type Days = {
     readonly __tag: unique symbol
 }
 
+
 type SpaceShuttle = {
     name: string,
     speed: Mph
@@ -70,7 +71,7 @@ const calculateTravelDays = (mph: Mph, km: Kilometers): Days => {
 }
 
 const displayShuttleTravelDays = (spaceShuttle: SpaceShuttle, destination: Destination): void => {
-    console.log(`${spaceShuttle.name} will take ${calculateTravelDays(spaceShuttle.speed, destination.distanceKm)} days to get to ${destination.name}.`)
+    console.log(`${spaceShuttle.name} will take ${from<Days>(calculateTravelDays(spaceShuttle.speed, destination.distanceKm))} days to get to ${destination.name}.`)
 }
 
 

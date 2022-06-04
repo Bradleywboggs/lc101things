@@ -90,8 +90,8 @@ destinations.forEach(function (destination) {
 module.exports = {
    destinations,
    spaceShuttle,
-   // marsDestination,
-   // moonDestination,
-   // calculateTravelDays,
+   marsDestination,
+   moonDestination,
+   calculateTravelDays,
    displayShuttleTravelDays
 }
