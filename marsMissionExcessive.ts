@@ -47,39 +47,39 @@ type Destination  = {
     distanceKm: Kilometers    
 }
 
-const spaceShuttle: SpaceShuttle = {
+const shuttleDetermination: SpaceShuttle = {
     name: "Determination",
     speed: to<Mph>(17500)
 }
 
-const moonDestination: Destination = {
+const moon: Destination = {
     name: "The Moon",
     distanceKm: to<Kilometers>(384400)
 }
 
-const marsDestination: Destination = {
+const mars: Destination = {
     name: "Mars",
     distanceKm: to<Kilometers>(225000000)
 }
+const destinations: Array<Destination> = [mars, moon]
 
-const kmToMi = (km: Kilometers): Miles => to<Miles>((from<Kilometers>(km) * MILES_PER_KM))
-const hoursFromMiAndMph = (mi: Miles, mph: Mph): Hours => to<Hours>((from<Miles>(mi) / from<Mph>(mph)))
-const daysFromHours = (hours: Hours): Days => to<Days>((from<Hours>(hours) / HOURS_PER_DAY))
+const toMiles = (km: Kilometers): Miles => to<Miles>((from<Kilometers>(km) * MILES_PER_KM))
+const toHours = (mi: Miles, mph: Mph): Hours => to<Hours>((from<Miles>(mi) / from<Mph>(mph)))
+const toDays = (hours: Hours): Days => to<Days>((from<Hours>(hours) / HOURS_PER_DAY))
 
 const calculateTravelDays = (mph: Mph, km: Kilometers): Days => { 
-    return daysFromHours(hoursFromMiAndMph(kmToMi(km), mph))
+    return toDays(toHours(toMiles(km), mph))
 }
 
-const displayShuttleTravelDays = (spaceShuttle: SpaceShuttle, destination: Destination): void => {
-    console.log(`${spaceShuttle.name} will take ${from<Days>(calculateTravelDays(spaceShuttle.speed, destination.distanceKm))} days to get to ${destination.name}.`)
+const displayShuttleTravelDays = (shuttleDetermination: SpaceShuttle, destination: Destination): void => {
+    console.log(`${shuttleDetermination.name} will take ${from<Days>(calculateTravelDays(shuttleDetermination.speed, destination.distanceKm))} days to get to ${destination.name}.`)
 }
 
 
 
-displayShuttleTravelDays(spaceShuttle, marsDestination)
-displayShuttleTravelDays(spaceShuttle, moonDestination)
+displayShuttleTravelDays(shuttleDetermination, mars)
+displayShuttleTravelDays(shuttleDetermination, moon)
 
-const destinations: Array<Destination> = [marsDestination, moonDestination]
 
 
 
@@ -120,11 +120,10 @@ destinations.forEach(destination => displayShuttleTravelDays(spaceShuttle, desti
 // }
 
 module.exports = {
-    // displaySection,
     destinations,
     spaceShuttle,
-    // marsDestination,
-    // moonDestination,
-    // calculateTravelDays,
+    marsDestination,
+    moonDestination,
+    calculateTravelDays,
     displayShuttleTravelDays
 }
