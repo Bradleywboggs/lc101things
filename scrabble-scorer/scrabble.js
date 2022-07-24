@@ -32,6 +32,7 @@ const transform = (oldPointStructure) => {
   for (let i; i < threePointers.length; i++) {
     newPointStructure[threePointers[i]] = 3
   }
+// TODO: Repeat the process with 4,5,8, and 10 pointers
 // const fourPointers  = oldPointStructure[4]  
 // const fivePointers  = oldPointStructure[5]
 // const eightPointers  = oldPointStructure[8]
