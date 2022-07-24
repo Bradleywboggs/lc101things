@@ -1,6 +1,4 @@
 const input = require('readline-sync');
-const { newPointStructure } = require('./scrabbleScorer');
-
 const vowels = ["a", "e", "i", "o", "u"]
 
 const oldPointStructure = {
