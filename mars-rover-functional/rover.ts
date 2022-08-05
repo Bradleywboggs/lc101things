@@ -51,5 +51,5 @@ const processCommand = (cmd: Command, rover: Rover): [Result, Rover] => {
         return [{completed: true}, {...rover, position: value}]
     }
 
-    return [{completed: true, roverStatus: {...rover}}, rover]
+    return [{completed: true, roverStatus: rover}, rover]
 }
