@@ -16,7 +16,7 @@ class PowerMode(Enum):
 @dataclass
 class Command:
     command_type: CommandType
-    value: None | int | str
+    value: None | int | PowerMode
 
 
 @dataclass
