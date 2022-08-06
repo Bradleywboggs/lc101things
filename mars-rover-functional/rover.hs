@@ -1,6 +1,6 @@
 #! /usr/bin/env stack
 --stack --resolver lts-16.26 script
-data PowerMode = LowPower | Normal deriving Show
+data PowerMode = LowPower | Normal deriving (Show, Eq)
 type Position = Integer
 type Watts = Integer
 type MessageName = String
@@ -10,12 +10,12 @@ data Rover = Rover { position :: Position
                    , mode :: PowerMode
                    , generatorWatts :: Watts
                    } deriving Show
-
-data Completed = Failed | Succeeded
-data Result = Result Completed (Maybe RoverStatus)
-data Command = ModeChange PowerMode | Move Position | StatusCheck
-data Message = Message MessageName [Command]
-data Response = Response MessageName [Result]
+ 
+data Completed = Failed | Succeeded deriving Show
+data Result = Result Completed (Maybe RoverStatus) deriving Show
+data Command = ModeChange PowerMode | Move Position | StatusCheck deriving Show
+data Message = Message MessageName [Command] deriving Show
+data Response = Response MessageName [Result] deriving Show
 
 receiveMessage :: Message -> Rover -> (Response, Rover)
 receiveMessage (Message messageName commands) rover = 
@@ -38,4 +38,20 @@ processCommand (Move newPosition) (Rover _ Normal watts) = (Result Succeeded Not
 
 
 main :: IO ()
-main = putStrLn "It compiled!"
+main = do 
+    let commands = [ StatusCheck
+                   , ModeChange LowPower
+                   , StatusCheck
+                   , Move 300
+                   , StatusCheck
+                   , ModeChange Normal
+                   , StatusCheck
+                   , Move 300
+                   , StatusCheck
+                   ]
+    let message = Message "Test" commands
+    let rover = Rover 100 Normal 110
+    let (response, updatedRover) = receiveMessage message rover
+    print response
+    print updatedRover
+    
