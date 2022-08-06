@@ -12,10 +12,10 @@ data Rover = Rover { position :: Position
                    } deriving Show
  
 data Completed = Failed | Succeeded deriving Show
-data Result = Result Completed (Maybe RoverStatus) deriving Show
+data Result = Result {status :: Completed, roverStatus :: Maybe RoverStatus } deriving Show
 data Command = ModeChange PowerMode | Move Position | StatusCheck deriving Show
 data Message = Message MessageName [Command] deriving Show
-data Response = Response MessageName [Result] deriving Show
+data Response = Response {respMsgName :: MessageName, respResults :: [Result]} deriving Show
 
 receiveMessage :: Message -> Rover -> (Response, Rover)
 receiveMessage (Message messageName commands) rover = 
@@ -52,6 +52,8 @@ main = do
     let message = Message "Test" commands
     let rover = Rover 100 Normal 110
     let (response, updatedRover) = receiveMessage message rover
-    print response
-    print updatedRover
+    putStrLn "Command Results"
+    mapM_ print $ respResults response
+    putStrLn ""
+    putStr "Final Rover State: " >> print updatedRover
     
